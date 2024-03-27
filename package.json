@@ -5,8 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --no-warnings ./src/app.js",
-    "rio": "oi.js"
+    "dev": "node --watch --no-warnings ./src/app.js"
   },
   "author": "",
   "license": "ISC",
