@@ -25,9 +25,13 @@ post body
 }
 ```
 
-### express-basic-auth
+### express-basic-auth get router, Headers and send a request
 
  express-basic-auth middleware. This middleware allows you to require HTTP Basic Authentication for specific routes.
+
+ Go to Postman > 
+
+![image](https://github.com/geraldotech/-CRUD-Node-SQL_lite_express/assets/92253544/f669f5fc-658c-4c55-b25f-569357fb9525)
 
 
 
