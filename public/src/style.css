@@ -1,0 +1,19 @@
+html{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+form div, select{
+  padding: .5rem;
+}
+
+input, button {
+  border: 1px solid #fff;
+  padding: .5rem;
+}
+
+fieldset{
+  margin-top: 20px;
+  border: 1px solid;
+}
+

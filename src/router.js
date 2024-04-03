@@ -2,7 +2,7 @@
 
 // openDb
 //import { openDb } from './configDB.js'
-import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home } from './Controler/Pessoa.js'
+import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
 
 const router = Router()
@@ -15,6 +15,7 @@ router.get('/status', (req, res) => {
     "message": "API running"
   })
 })
+router.get('/admin', dashboardAdmin)
 router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.post('/pessoa', insertPessoa)

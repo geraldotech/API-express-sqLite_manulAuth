@@ -6,12 +6,42 @@ import fs from 'fs'
 import https from 'https'
 import cors from 'cors'
 
+
+
 const port = 4000
 const app = express()
 
 app.use(express.json())
+
+/* === Middware === */
+
+app.use((req, res, next) => {
+  // console.log('acessou o Middware!!')
+
+  // Enable CORS globally for all routes
+   app.use(cors())
+
+  // block PostMan
+  /*   if (userAgent && userAgent.includes('Postman')) {
+    return res.status(403).send('Postman requests are not allowed');
+} */
+
+  // allow fetch - all
+ // res.header('Access-Control-Allow-Origin', 'http://localhost:5501')
+
+  // allow post browser - all
+  res.header('Access-Control-Allow-Headers', 'http://143.198.232.51:4000')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  
+  // allow methods 
+  res.header("Access-Control-Allow-Methods", ['GET', 'DELETE', 'PUT', 'POST'])
+
+  next()
+})
+
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
 app.use(router)
-app.use(cors())
 
 /* 
 createTable()
@@ -60,7 +90,12 @@ app.listen(port, () => {
   console.log(`App running on port ${port}`)
 })
 
-https.createServer({
-  cert: fs.readFileSync('./src/SSL/code.crt'),
-  key: fs.readFileSync('./src/SSL/code.key'),
-}, app).listen(4001, () => console.log(`App running on ssl https`))
+https
+  .createServer(
+    {
+      cert: fs.readFileSync('./src/SSL/code.crt'),
+      key: fs.readFileSync('./src/SSL/code.key'),
+    },
+    app
+  )
+  .listen(4001, () => console.log(`App running on ssl https`))

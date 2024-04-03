@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  style="color-scheme: dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Test: HTTP Method</title>
+    <script
+      src="./src/app.js"
+      type="module"></script>
+    <link
+      rel="stylesheet"
+      href="./src/style.css" />
+  </head>
+  <body>
+    <h1>handler http method</h1>
+    <p>post, delete, put, get ?</p>
+    <pre>
+      {
+        "nome": "John",
+        "TEXT": "your text",
+        "idade": 100
+      }
+  </pre
+    >
+    <div id="app">
+      <label for="selectedMethod">Method:</label>
+      <select
+        name=""
+        id="selectedMethod"
+        v-model="selectedMethod">
+        <option value="post">Post</option>
+        <option value="delete">Delete</option>
+        <option value="put">Put</option>
+      </select>
+
+
+      <fieldset v-show="selectedMethod.includes('post')">
+        <legend>POST</legend>
+        <form action="" @submit.prevent="handleForm">
+          <div>
+            <input
+              type="text"
+              placeholder="name"
+              name="name"
+              v-model="name"
+              value="name" />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="age"
+              name="age"
+              v-model="age"
+              value="12" />
+          </div>
+          <div>
+            <button>Send Form</button>
+          </div>
+        </form>
+      </fieldset>
+
+      <fieldset v-show="selectedMethod == 'delete'">
+        <legend>DELETE</legend>
+        <form action="" @submit.prevent="handleForm">
+          <input
+            type="text"
+            placeholder="id"
+            v-model="postId" />
+          <input
+            type="submit"
+            value="Send" />
+        </form>
+      </fieldset>
+
+
+<!-- put -->
+
+<fieldset v-show="selectedMethod == 'put'">
+  <legend>PUT</legend>
+  <form action="" @submit.prevent="handleForm">
+    <div>
+      <input type="text" placeholder="id" v-model="postId">
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="name"
+        name="name"
+        v-model="name"
+        value="name" />
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="age"
+        name="age"
+        v-model="age"
+        value="12" />
+    </div>
+    <div>
+      <button>Send Form</button>
+    </div>
+  </form>
+</fieldset>
+
+    </div>
+  </body>
+</html>
