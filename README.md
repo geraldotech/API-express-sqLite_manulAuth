@@ -25,7 +25,9 @@ post body
 }
 ```
 
-### express-basic-auth get router, Headers and send a request
+### express-basic-auth manual setup
+
+https://www.codingthesmartway.com/how-to-add-basic-authentication-to-an-express-web-app/
 
  express-basic-auth middleware. This middleware allows you to require HTTP Basic Authentication for specific routes.
 

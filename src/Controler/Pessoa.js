@@ -1,9 +1,6 @@
 import { openDb } from "../configDB.js";
 
 
-
-
-
 export async function createTable(){
   openDb().then(db => {
     db.exec('CREATE TABLE IF NOT EXISTS Pessoa (id INTEGER PRIMARY KEY, nome, TEXT, idade INTEGER)')
@@ -15,9 +12,14 @@ export function Home(req, res){
 }
 
 
-export function dashboardAdmin(req, res) {
+export function dashboardAdmin(req, res) { 
   //res.render('index.html')
   res.sendFile('admin.html', { root: './public' });
+}
+
+export function loginHandler(req, res) {
+  console.log(`login`)
+  res.sendFile('login.html',{ root: './public' })
 }
 
 

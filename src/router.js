@@ -2,7 +2,7 @@
 
 // openDb
 //import { openDb } from './configDB.js'
-import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin } from './Controler/Pessoa.js'
+import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
 
 const router = Router()
@@ -16,6 +16,10 @@ router.get('/status', (req, res) => {
   })
 })
 router.get('/admin', dashboardAdmin)
+router.get('/login', loginHandler)
+
+
+/* Pessoas */
 router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.post('/pessoa', insertPessoa)
@@ -33,6 +37,12 @@ router.put('/pessoa', (req, res) => {
     statusCode: 200,
   })
 })
+// custom logout basic auth
+/* router.get('/logout', (req, res) => {
+  // Respond with 401 status code to clear browser credentials
+  res.status(401).send('Logged out');
+});
+ */
 
 
 

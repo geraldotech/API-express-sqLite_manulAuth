@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  style="color-scheme: dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <form
+      action=""
+      method="POST">
+      <input
+        type="text"
+        value="geraldo"
+        name="username"
+        placeholder="username" />
+      <input
+        type="password"
+        name="password"
+        value="123"
+        placeholder="password" />
+      <button>Login</button>
+    </form>
+
+    <script>
+      const form = document.querySelector('form')
+      const baseURL = '/admin'
+
+      form.onsubmit = formHandler
+
+      function formHandler() {
+        event.preventDefault()
+
+        const data = Object.fromEntries(new FormData(form))
+        const { username, password } = data
+
+        // Encode username and password
+        const encodedCredentials = btoa(`${username}:${password}`)
+        // Fetch with authentication headers
+        fetch(baseURL, {
+          method: 'GET',
+          //mode: 'no-cors', // Set the request mode to 'no-cors'
+          headers: {
+            //'Content-Type': 'application/json', // Example content type
+            Authorization: `Basic ${encodedCredentials}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok')
+            }
+          //  return response.json() 
+          // works but prompt for login again!! in tests
+          return window.location.href = '/admin';
+          }) .then((data) => {
+            //console.log(data)
+            console.log(data)
+            // 
+          })
+          .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error)
+          })
+      }
+    </script>
+  </body>
+</html>
