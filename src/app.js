@@ -5,15 +5,46 @@ import router from './router.js'
 import fs from 'fs'
 import https from 'https'
 import cors from 'cors'
-
+import basicAuth from 'express-basic-auth'
 
 
 const port = 4000
 const app = express()
 
-app.use(express.json())
 
-/* === Middware === */
+
+// Define your credentials
+const users = {
+  'username': 'password'
+};
+
+// Middleware for basic authentication
+/* const authMiddleware = basicAuth({
+  console.log()
+  users: users,
+  challenge: true // Respond with 401 authentication challenge
+}); */
+
+function authMiddleware(req, res, next) {
+  const auth = req.headers.authorization;
+  console.log(auth)
+  if (auth === 'password') {
+    next();
+  } else {
+    res.status(401);
+    res.send('Access forbidden');
+  }
+}
+
+// Middleware to require authentication only for the /post route
+app.get('/admin', authMiddleware);
+
+app.use(express.json())
+//app.use(authMiddleware)
+
+/* === Middwares === */
+
+
 
 app.use((req, res, next) => {
   // console.log('acessou o Middware!!')
@@ -30,7 +61,7 @@ app.use((req, res, next) => {
  // res.header('Access-Control-Allow-Origin', 'http://localhost:5501')
 
   // allow post browser - all
-  res.header('Access-Control-Allow-Headers', 'http://143.198.232.51:4000')
+  res.header('Access-Control-Allow-Headers', 'http://localhost:4000/admin')
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   
   // allow methods 

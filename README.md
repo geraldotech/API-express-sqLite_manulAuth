@@ -24,3 +24,11 @@ post body
   "idade": 100
 }
 ```
+
+### express-basic-auth
+
+ express-basic-auth middleware. This middleware allows you to require HTTP Basic Authentication for specific routes.
+
+
+
+

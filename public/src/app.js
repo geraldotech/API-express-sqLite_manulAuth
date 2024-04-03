@@ -2,7 +2,8 @@ import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dis
 
 const app = createApp({
   setup() {
-    const baseURL = 'http://143.198.232.51:4000/pessoas'
+    const getURL = 'http://localhost:4000/pessoas'
+    const singleURL = 'http://localhost:4000/pessoa'
 
     const name = ref('')
     const age = ref('')
@@ -16,12 +17,13 @@ const app = createApp({
     })
 
     const handleForm = () => {
-      if (selectedMethod.value == 'post') return handlePost()
-      if (selectedMethod.value == 'delete') return handleDelete()
-      if (selectedMethod.value == 'put') return handlePut()
+      console.log(`ok`)
+      if (selectedMethod.value == 'post') return handlePost(singleURL)
+      if (selectedMethod.value == 'delete') return handleDelete(singleURL)
+      if (selectedMethod.value == 'put') return handlePut(singleURL)
     }
 
-    function handlePut(){
+    function handlePut(url){
 
        // datajson
        const json = JSON.stringify({
@@ -32,7 +34,7 @@ const app = createApp({
 
         //ajax
         const ajaxn = new XMLHttpRequest()
-        ajaxn.open('PUT', baseURL)
+        ajaxn.open('PUT', url)
         ajaxn.setRequestHeader('Content-Type', 'application/json')
         ajaxn.send(json)
 
@@ -49,13 +51,13 @@ const app = createApp({
 
     }
 
-    function handleDelete() {
+    function handleDelete(url) {
       const id = +postId.value
       console.log(id)
 
       //ajax
       const ajaxn = new XMLHttpRequest()
-      ajaxn.open('DELETE', baseURL)
+      ajaxn.open('DELETE', url)
       ajaxn.setRequestHeader('Content-Type', 'application/json')
 
       const ajaxdata = JSON.stringify({
@@ -73,7 +75,7 @@ const app = createApp({
       }
     }
 
-    function handlePost() {
+    function handlePost(url) {
       // datajson
       const json = JSON.stringify({
         nome: name.value,
@@ -82,7 +84,7 @@ const app = createApp({
 
       // ajax
       const ajaxn = new XMLHttpRequest()
-      ajaxn.open('POST', baseURL)
+      ajaxn.open('POST', url)
       ajaxn.setRequestHeader('content-Type', 'application/json')
       ajaxn.send(json)
 
@@ -102,7 +104,7 @@ const app = createApp({
     }
 
     async function fetchAPI() {
-      const req = await fetch('http://143.198.232.51:4000/pessoas')
+      const req = await fetch('http://localhost:4000/pessoas')
       const data = await req.json()
       console.dir(data)
     }
@@ -111,7 +113,7 @@ const app = createApp({
       name.value = ''
       age.value = ''
       postId.value = ''
-      window.location.reload()
+     window.location.reload()
     }
    
 
