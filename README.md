@@ -1,4 +1,6 @@
-Start Project:
+Express API + sqlite
+
+## Start Project:
 `npm run dev`
 
 sqlite install two packes: https://www.npmjs.com/package/sqlite#installationW

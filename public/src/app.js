@@ -3,10 +3,10 @@ import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dis
 const app = createApp({
   setup() {
     
-    const Production = true
+    const production = true
 
-    const baseURL = Production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
-    const fetchUrl = Production ? `http://143.198.232.51/pessoas` : `http://localhost:4000/pessoas`
+    const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
+    const fetchUrl = Production ? `http://143.198.232.51:4000/pessoas` : `http://localhost:4000/pessoas`
 
     const name = ref('')
     const age = ref('')
