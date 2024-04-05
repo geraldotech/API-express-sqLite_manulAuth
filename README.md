@@ -1,4 +1,6 @@
-Express API + sqlite
+# API express sqLite
+
+- cors
 
 ## Start Project:
 `npm run dev`
