@@ -2,8 +2,10 @@ import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dis
 
 const app = createApp({
   setup() {
-    const getURL = 'http://localhost:4000/pessoas'
-    const singleURL = 'http://localhost:4000/pessoa'
+    const fetchUrl = 'http://localhost:4000/pessoas'
+
+    const Production = location.port != ''
+    const baseURL = Production ? 'http://localhost:4000/pessoa' : 'http://143.198.232.51:4000/pessoa'
 
     const name = ref('')
     const age = ref('')
@@ -18,37 +20,34 @@ const app = createApp({
 
     const handleForm = () => {
       console.log(`ok`)
-      if (selectedMethod.value == 'post') return handlePost(singleURL)
-      if (selectedMethod.value == 'delete') return handleDelete(singleURL)
-      if (selectedMethod.value == 'put') return handlePut(singleURL)
+      if (selectedMethod.value == 'post') return handlePost(baseURL)
+      if (selectedMethod.value == 'delete') return handleDelete(baseURL)
+      if (selectedMethod.value == 'put') return handlePut(baseURL)
     }
 
-    function handlePut(url){
-
-       // datajson
-       const json = JSON.stringify({
+    function handlePut(url) {
+      // datajson
+      const json = JSON.stringify({
         id: +postId.value,
         nome: name.value,
         idade: age.value,
       })
 
-        //ajax
-        const ajaxn = new XMLHttpRequest()
-        ajaxn.open('PUT', url)
-        ajaxn.setRequestHeader('Content-Type', 'application/json')
-        ajaxn.send(json)
+      //ajax
+      const ajaxn = new XMLHttpRequest()
+      ajaxn.open('PUT', url)
+      ajaxn.setRequestHeader('Content-Type', 'application/json')
+      ajaxn.send(json)
 
-        ajaxn.onload = function (e) {
-          // Check if the request was a success
-          if (this.readyState === XMLHttpRequest.DONE) {
+      ajaxn.onload = function (e) {
+        // Check if the request was a success
+        if (this.readyState === XMLHttpRequest.DONE) {
+          // Get and convert the responseText into JSON
+          console.log(`Alterado com sucesso! ✅`)
 
-            // Get and convert the responseText into JSON
-            console.log(`Alterado com sucesso! ✅`)
-
-            cleanInputs()
-          }
+          cleanInputs()
         }
-
+      }
     }
 
     function handleDelete(url) {
@@ -90,10 +89,8 @@ const app = createApp({
 
       // if susscess
       ajaxn.onload = function (e) {
-        
         // Check if the request was a success
         if (this.readyState === XMLHttpRequest.DONE) {
-
           // Get and convert the responseText into JSON
           console.log(`Cadastrado com sucesso! ✅`)
 
@@ -104,7 +101,7 @@ const app = createApp({
     }
 
     async function fetchAPI() {
-      const req = await fetch('http://localhost:4000/pessoas')
+      const req = await fetch(fetchUrl)
       const data = await req.json()
       console.dir(data)
     }
@@ -113,9 +110,8 @@ const app = createApp({
       name.value = ''
       age.value = ''
       postId.value = ''
-     window.location.reload()
+      window.location.reload()
     }
-   
 
     onMounted(() => {
       fetchAPI()

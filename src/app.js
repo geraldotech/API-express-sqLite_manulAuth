@@ -101,8 +101,6 @@ app.use('/admin', authMiddleware)
 
 
 
-
-
 /* 
 createTable()
 
