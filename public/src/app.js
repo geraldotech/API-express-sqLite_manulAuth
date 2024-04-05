@@ -3,7 +3,7 @@ import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dis
 const app = createApp({
   setup() {
     
-    const production = false
+    const production = true
 
     const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
     const fetchUrl = production ? `http://143.198.232.51:4000/pessoas` : `http://localhost:4000/pessoas`
