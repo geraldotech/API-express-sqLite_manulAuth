@@ -1,6 +1,9 @@
 # API express sqLite
 
 - cors
+- authMiddleware header
+
+## hosted on Vercel: url
 
 ## Start Project:
 `npm run dev`

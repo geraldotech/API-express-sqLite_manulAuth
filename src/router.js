@@ -1,9 +1,10 @@
-// arquivo router.js melhor escabalidade, manutencao do code
+// arquivo router.js melhor escalabilidade, manutencao do code
 
 // openDb
 //import { openDb } from './configDB.js'
 import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
+
 
 const router = Router()
 
@@ -24,6 +25,7 @@ router.get('/pessoas', selectPessoas)
 router.get('/pessoa', selectPessoa)
 router.post('/pessoa', insertPessoa)
 router.delete('/pessoa', deletePessoa)
+
 // previous way to study
 router.put('/pessoa', (req, res) => {
   if (req.body && !req.body.id) {
@@ -37,15 +39,18 @@ router.put('/pessoa', (req, res) => {
     statusCode: 200,
   })
 })
+
 // custom logout basic auth
-/* router.get('/logout', (req, res) => {
+ router.get('/logout', (req, res) => {
   // Respond with 401 status code to clear browser credentials
   res.status(401).send('Logged out');
 });
- */
 
 
 
+
+
+ 
 
 
 /* createTable()

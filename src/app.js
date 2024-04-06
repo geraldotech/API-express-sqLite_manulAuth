@@ -5,14 +5,22 @@ import router from './router.js'
 import fs from 'fs'
 import https from 'https'
 import cors from 'cors'
-import basicAuth from 'express-basic-auth'
+import { config } from 'dotenv';
 
-const port = 4000
+
+const port = 4005
 const app = express()
 app.use(express.json())
-app.use(router)
-// Sample way serve static files from the 'public' directory
-app.use(express.static('public'))
+config();
+
+const { NOME } = process.env
+console.log(process.env.NOME)
+
+
+
+
+// Set the view engine to 'html'
+app.set('view engine', 'html');
 
 
 app.use((req, res, next) => {
@@ -39,27 +47,9 @@ app.use((req, res, next) => {
   next()
 })
 
+
+
 /* === Middwares === */
-/* 
-//👉 using express-basic-auth + logout router
-//only works router acima
-
-app.use(basicAuth)
-
-// Define your credentials
-const users = {
-  'geraldo': '12@'
-};
-
-// Middleware for basic authentication
-const authMiddleware = basicAuth({
-  users: users,
-  challenge: true // Respond with 401 authentication challenge
-});
-
-app.use('/admin', authMiddleware) */
-
-
 
 /* ==== 👉 manual auth  ====  */
 // only works if router vim depois
@@ -67,37 +57,51 @@ app.use('/admin', authMiddleware) */
 // send a get in post
 
 function authMiddleware(req, res, next) {
+  //console.log(`authMiddleware response`,req.headers)
   const auth = req.headers.authorization
- //  console.log(req.headers) 
- console.log(`authMiddleware`,req.headers)
+  //console.log(req)
 
- if (auth && auth.startsWith('Basic ')) {
-  const encodedCredentials = auth.split(' ')[1];
-  const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
-  const [username, password] = decodedCredentials.split(':');
+  if (auth && auth.startsWith('Basic ')) {
+    const encodedCredentials = auth.split(' ')[1]
+    const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8')
+    const [username, password] = decodedCredentials.split(':')
 
-  // Now you have the username and password
-  console.log('username:', username);
-  console.log('Password:', password);
- 
-  if ( username === 'geraldo' && password === '123') {
-  return next()
+    if (username === 'geraldo' && password === '123') {
+     console.log(`logado`)
+      //  res.setHeader(`Basic test`); // Add custom header
+      req.isAuthenticated = true
+      return next()
+    } else {
+      res.status(401).send('Unauthorized')
+    }
   } else {
-    res.status(401).send('Unauthorized');
+    res.status(401)
+    res.send('Access forbidden')
   }
-}  else {
-  res.status(401)
-  res.send('Access forbidden')
 }
- 
-}
-//app.get('/admin', authMiddleware);
-// Middleware to require authentication only for the /post route
 
-// Middleware to require authentication in all routers
-//app.use(authMiddleware)
-app.use('/admin', authMiddleware)
+function isAuth(req, res, next) {
+  console.log(`reply from middle isAuth`) 
+ if(true){
+  req.isAuthenticated = true
+   next() // Move to the next middleware/route handler
+ }
+}
+
+const helloMiddleware = () => {
+  return (req, res, next) => {
+    console.log('Hello from custom middleware!')
+    next() // Call next to move to the next middleware or route handler
+  }
+}
+
 //app.use('/pessoas', authMiddleware)
+//app.use('/admin', authMiddleware)
+
+app.use(router)
+// Sample way serve static files from the 'public' directory
+app.use(express.static('public'))
+
 
 
 

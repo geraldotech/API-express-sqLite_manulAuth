@@ -1,12 +1,14 @@
 import { createApp, ref, reactive, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 
+
 const app = createApp({
   setup() {
     
-    const production = true
+    const production = false
+    const deployURL = 'http://143.198.232.51'
 
-    const baseURL = production ? 'http://143.198.232.51:4000/pessoa' : 'http://localhost:4000/pessoa' 
-    const fetchUrl = production ? `http://143.198.232.51:4000/pessoas` : `http://localhost:4000/pessoas`
+    const baseURL = production ? `${deployURL}:4005/pessoa` : 'http://localhost:4000/pessoa' 
+    const fetchUrl = production ? `${deployURL}:4005/pessoas` : `http://localhost:4000/pessoas`
 
     const name = ref('')
     const age = ref('')
