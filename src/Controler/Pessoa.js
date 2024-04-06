@@ -11,16 +11,14 @@ export function Home(req, res) {
 }
 
 export function dashboardAdmin(req, res) {
-
   //console.log(`admin`, process.env.NOME)
   //console.log('dashAdmin', req.headers.authorization)
   //res.render('index.html')
- // console.log(req.isAuthenticated)
-res.sendFile('admin.html', { root: './public'})
+  // console.log(req.isAuthenticated)
+  res.sendFile('admin.html', { root: './public' })
 
   //res.json({statusCode: 201, auth: true})
   //res.json({ message: "login successfully", product: true });
-
 }
 
 export function loginHandler(req, res) {
@@ -65,4 +63,3 @@ export async function deletePessoa(req, res) {
     message: 'deleted',
   })
 }
-
