@@ -147,7 +147,7 @@ app.listen(port, () => {
   console.log(`App running on port ${port}`)
 })
 
-https
+/* https
   .createServer(
     {
       cert: fs.readFileSync('./src/SSL/code.crt'),
@@ -156,3 +156,4 @@ https
     app
   )
   .listen(4006, () => console.log(`App running on ssl https`))
+ */
