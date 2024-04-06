@@ -1,7 +1,7 @@
 //import { openDb } from './configDB.js'
 //import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa } from './Controler/Pessoa.js'
 import express from 'express'
-import router from './router.js'
+import router from './src/router.js'
 import fs from 'fs'
 import https from 'https'
 import cors from 'cors'
@@ -16,11 +16,6 @@ config();
 const { NOME } = process.env
 console.log(process.env.NOME)
 
-
-
-
-// Set the view engine to 'html'
-app.set('view engine', 'html');
 
 
 app.use((req, res, next) => {

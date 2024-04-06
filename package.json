@@ -2,10 +2,10 @@
   "name": "crud-node-sql_lite_express",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --no-warnings ./src/app.js"
+    "dev": "node --watch --no-warnings app.js"
   },
   "author": "",
   "license": "ISC",
