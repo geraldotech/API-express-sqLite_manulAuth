@@ -5,20 +5,17 @@
 import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa, Home, dashboardAdmin, loginHandler } from './Controler/Pessoa.js'
 import express, { Router } from 'express'
 
-
 const router = Router()
-
 
 router.get('/', Home)
 router.get('/status', (req, res) => {
   res.json({
-    "status": 200,
-    "message": "API running"
+    status: 200,
+    message: 'API running',
   })
 })
 router.get('/admin', dashboardAdmin)
 router.get('/login', loginHandler)
-
 
 /* Pessoas */
 router.get('/pessoas', selectPessoas)
@@ -41,17 +38,10 @@ router.put('/pessoa', (req, res) => {
 })
 
 // custom logout basic auth
- router.get('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   // Respond with 401 status code to clear browser credentials
-  res.status(401).send('Logged out');
-});
-
-
-
-
-
- 
-
+  res.status(401).send('Logged out')
+})
 
 /* createTable()
 
@@ -95,6 +85,5 @@ app.delete('/pessoa', async (req, res) => {
   let pessoa = await deletePessoa(req.body.id)
   res.json(pessoa)
 }) */
-
 
 export default router

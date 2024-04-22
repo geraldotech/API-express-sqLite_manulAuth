@@ -31,7 +31,7 @@
 
     <script>
       const form = document.querySelector('form')
-      const baseURL = '/admin'
+      const baseURL = '/login'
 
       form.onsubmit = formHandler
 
@@ -59,7 +59,7 @@
             }
           //  return response.json() 
           // works but prompt for login again!! in tests
-             // return window.location.href = '/admin';
+              return window.location.href = '/admin';
           }) .then((data) => {
             //console.log(data)
             // 

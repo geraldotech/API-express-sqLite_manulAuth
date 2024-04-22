@@ -21,8 +21,47 @@ export function dashboardAdmin(req, res) {
   //res.json({ message: "login successfully", product: true });
 }
 
-export function loginHandler(req, res) {
-  res.sendFile('login.html', { root: './public' })
+export function loginHandler(req, res, next) {
+  console.log(`tentando logar`)
+  // res.sendFile('login.html', { root: './public' })
+  const auth = req.headers.authorization
+
+  console.log(auth)
+  console.log(req.isAuthenticated)
+
+  /* if(!auth){
+    res.sendFile('login.html', { root: './public' })
+  } else {
+
+    
+  } */
+
+  if (auth && auth.startsWith('Basic ')) {
+    const encodedCredentials = auth.split(' ')[1]
+    const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8')
+    const [username, password] = decodedCredentials.split(':')
+
+    console.log(username === 'geraldo' && password === '123')
+
+    if (username === 'geraldo' && password === '123') {
+      console.log(`logado`)
+      //  res.setHeader(`Basic test`); // Add custom header
+      req.isAuthenticated = true
+      //next()
+      return res.sendFile('admin.html', { root: './public' })
+    } else {
+      console.log(`Não autorizado!`)
+      res.sendFile('login.html', { root: './public' })
+      //  res.status(401).send('Unauthorized')
+    }
+  } else {
+    /*  res.status(401)
+    console.log('Access forbidden')
+    res.send('Access forbidden') */
+    res.sendFile('login.html', { root: './public' })
+  }
+
+  // envia o admin!
 }
 
 export async function insertPessoa(req, res) {
